@@ -1,4 +1,6 @@
 %define git 20250418
+%define libname %mklibname sonic
+%define devname %mklibname -d sonic
 
 Summary:	Sonic Library for speeding up and slowing speach
 Summary(pl.UTF-8):	Biblioteka Sonic do przyspieszania i spowalniania mowy
@@ -28,23 +30,25 @@ Sonic to bardzo prosta biblioteka ANSI C, zaprojektowana do łatwej
 integracji w aplikacjach przetwarzających strumienie głosu, takich jak
 backendy syntezatorów mowy.
 
-%package devel
-Summary:	Header files for Sonic library
-Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Sonic
-Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+%package -n %{libname}
+Summary:        Shared library for %{name}
 
-%description devel
-Header files for Sonic library.
+%description -n %{libname}
+This package contains the shared library files.
 
-%description devel -l pl.UTF-8
-Pliki nagłówkowe biblioteki Sonic.
+%package -n %{devname}
+Summary:        Development files for %{name}
+Requires:	%{libname} = %{EVRD}
+
+%description -n %{devname}
+This package contains development files for %{name}.
+
 
 %package static
 Summary:	Static Sonic library
 Summary(pl.UTF-8):	Statyczna biblioteka Sonic
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{libname} = %{EVRD}
 
 %description static
 Static Sonic library.
@@ -67,7 +71,7 @@ Statyczna biblioteka Sonic.
 install -Dp sonic.1 $RPM_BUILD_ROOT%{_mandir}/man1/sonic.1
 
 
-%files
+%files -n %{libname}
 %defattr(644,root,root,755)
 %doc README doc/index.md
 %attr(755,root,root) %{_bindir}/sonic
@@ -75,7 +79,7 @@ install -Dp sonic.1 $RPM_BUILD_ROOT%{_mandir}/man1/sonic.1
 %attr(755,root,root) %ghost %{_libdir}/libsonic.so.0
 %{_mandir}/man1/sonic.1*
 
-%files devel
+%files -n %{devname}
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libsonic.so
 %{_includedir}/sonic.h
