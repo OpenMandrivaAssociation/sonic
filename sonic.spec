@@ -10,7 +10,7 @@ Group:		Libraries
 #Source0:	https://github.com/waywardgeek/sonic/archive/release-%{version}/%{name}-%{version}.tar.gz
 # Dont use source archive, bc is old and lack some core parts, needed to build. Packaging them separately is a waste of time.
 # Use git clone --recursive https://github.com/waywardgeek/sonic
-Source0:	sonic-%{version}.tar.xz
+Source0:	sonic-0.2.0-%{git}.tar.xz
 URL:		https://github.com/waywardgeek/sonic
 
 %description
@@ -53,7 +53,7 @@ Static Sonic library.
 Statyczna biblioteka Sonic.
 
 %prep
-%autosetup -n %{name}%{version} -p1
+%autosetup -n %{name}-0.2.0-%{git} -p1
 
 %build
 %make_build
