@@ -1,16 +1,17 @@
+%define git 20250418
+
 Summary:	Sonic Library for speeding up and slowing speach
 Summary(pl.UTF-8):	Biblioteka Sonic do przyspieszania i spowalniania mowy
 Name:		sonic
-Version:	0.2.0
+Version:	0.2.0.%{git}
 Release:	1
 License:	Apache v2.0
 Group:		Libraries
-#Source0Download: https://github.com/waywardgeek/sonic/releases
-Source0:	https://github.com/waywardgeek/sonic/archive/release-%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	9c3024a5485e66558ffb621c81385d75
-Patch0:		%{name}-libdir.patch
+#Source0:	https://github.com/waywardgeek/sonic/archive/release-%{version}/%{name}-%{version}.tar.gz
+# Dont use source archive, bc is old and lack some core parts, needed to build. Packaging them separately is a waste of time.
+# Use git clone --recursive https://github.com/waywardgeek/sonic
+Source0:	sonic-%{version}.tar.xz
 URL:		https://github.com/waywardgeek/sonic
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Sonic is a simple algorithm for speeding up or slowing down speech.
@@ -52,17 +53,12 @@ Static Sonic library.
 Statyczna biblioteka Sonic.
 
 %prep
-%setup -q -n %{name}-release-%{version}
-%patch0 -p1
+%autosetup -n %{name}%{version} -p1
 
 %build
-%{__make} \
-	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall -fPIC -pthread"
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	PREFIX="%{_prefix}" \
@@ -70,11 +66,6 @@ rm -rf $RPM_BUILD_ROOT
 
 install -Dp sonic.1 $RPM_BUILD_ROOT%{_mandir}/man1/sonic.1
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
