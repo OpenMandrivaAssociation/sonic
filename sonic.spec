@@ -5,7 +5,7 @@
 Summary:		Sonic Library for speeding up and slowing down speech
 Name:	sonic
 Version:	0.2.0
-Release:	1.%{gitdate}
+Release:	%{gitdate}.1
 License:	Apache-2.0
 Group:	Sound
 Url:		https://github.com/waywardgeek/sonic
