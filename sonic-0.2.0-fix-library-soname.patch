@@ -1,0 +1,20 @@
+diff -rupN sonic-0.2.0-20260314.old/Makefile sonic-0.2.0-20260314/Makefile
+--- sonic-0.2.0-20260314.old/Makefile	2026-05-05 17:44:25.632770000 +0200
++++ sonic-0.2.0-20260314/Makefile	2026-05-05 18:12:11.671157813 +0200
+@@ -96,14 +96,14 @@ spectrogram.o: spectrogram.c sonic.h
+ 	$(CC) $(CPPFLAGS) $(CFLAGS) -DSONIC_SPECTROGRAM -c spectrogram.c
+ 
+ $(LIB_NAME)$(LIB_TAG): $(EXTRA_OBJ) sonic.o wave.o
+-	$(CC) $(CFLAGS) $(LDFLAGS) $(SHARED_OPT) -Wl,$(SONAME)$(LIB_NAME) $(EXTRA_OBJ) sonic.o -o $(LIB_NAME)$(LIB_TAG) $(FFTLIB) wave.o
++	$(CC) $(CFLAGS) $(LDFLAGS) $(SHARED_OPT) -Wl,$(SONAME)$(LIB_NAME)$(LIB_TAG) $(EXTRA_OBJ) sonic.o -o $(LIB_NAME)$(LIB_TAG) $(FFTLIB) wave.o
+ ifneq ($(UNAME), Darwin)
+ 	ln -sf $(LIB_NAME)$(LIB_TAG) $(LIB_NAME)
+ 	ln -sf $(LIB_NAME)$(LIB_TAG) $(LIB_NAME).0
+ endif
+ 
+ $(LIB_INTERNAL_NAME)$(LIB_TAG): $(EXTRA_OBJ) sonic_internal.o wave.o  # No spectrogram needed here.
+-	$(CC) $(CFLAGS) $(LDFLAGS) $(SHARED_OPT) -Wl,$(SONAME)$(LIB_INTERNAL_NAME) $(EXTRA_OBJ) sonic_internal.o -o $(LIB_INTERNAL_NAME)$(LIB_TAG) $(FFTLIB)  wave.o
++	$(CC) $(CFLAGS) $(LDFLAGS) $(SHARED_OPT) -Wl,$(SONAME)$(LIB_INTERNAL_NAME)$(LIB_TAG) $(EXTRA_OBJ) sonic_internal.o -o $(LIB_INTERNAL_NAME)$(LIB_TAG) $(FFTLIB)  wave.o
+ ifneq ($(UNAME), Darwin)
+ 	ln -sf $(LIB_INTERNAL_NAME)$(LIB_TAG) $(LIB_INTERNAL_NAME)
+ 	ln -sf $(LIB_INTERNAL_NAME)$(LIB_TAG) $(LIB_INTERNAL_NAME).0
