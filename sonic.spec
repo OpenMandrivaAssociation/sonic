@@ -14,6 +14,7 @@ Url:		https://github.com/waywardgeek/sonic
 # Use git clone --recursive https://github.com/waywardgeek/sonic
 Source0:	%{name}-0.2.0-%{gitdate}.tar.xz
 Patch0:	sonic-0.2.0-fix-library-soname.patch
+BuildRequires:		make
 
 %description
 A simple algorithm for speeding up or slowing down speech. However, it's
